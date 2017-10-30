@@ -1,7 +1,8 @@
 
 function GameArea() {
 
-}
+};
+
 
 GameArea.prototype.start = function() {
   // this.canvas.width = 854;

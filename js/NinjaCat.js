@@ -1,50 +1,54 @@
-var gravity =  0.05;
 var canvas = document.getElementById("ninja-cat-game");
 var ctx = canvas.getContext("2d");
+// var friction = 0.8;
+// var gravity = 0.98;
 
-function NinjaCat(lives, width, height, x, y) {
+function NinjaCat(lives, x, y, width, height) {
   this.lives = lives;
+  this.x = x;
+  this.y = canvas.height - 60;
   this.width = width;
   this.height = height;
-  this.x = x;
-  this.y = y;
-  this.speedX = 0;
-  this.speedY = 2;
-  this.miny= 480 - this.height;
-  this.userPull= 0;
+  this.speed = 5;
+  this.vx = 0;
+  this.vy = 0;
+  this.jumpStrength = 7;
+  this.jumping = false;
+  this.grounded = false;
 };
 
-var ninjaCat = new NinjaCat(100, 50, 50, 300, 500, "blue");
+var ninjaCat = new NinjaCat(100, 200, 400, 60, 60);
 console.log(ninjaCat);
 
 function draw(ninjaCat) {
   var img = new Image();
   img.onload = function() {
-  ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 50, 50);
+    ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 60, 60);
   };
   img.src = "images/cat_jump.gif";
 };
 
-// NinjaCat.prototype.newPos = function(){
-//   this.x += this.speedX;
-//   this.y += this.speedY;
-// };
+NinjaCat.prototype.moveRight = function() {
+  if (this.vx > -this.speed) {
+    return this.vx++;
+  }
+};
+console.log("right" + ninjaCat.moveRight());
 
 NinjaCat.prototype.moveLeft = function() {
-  return this.x -= this.width;
+  if (this.vx < this.speed) {
+    return this.vx--;
+  }
 };
 console.log("left" + ninjaCat.moveLeft());
 
 
-NinjaCat.prototype.moveRight = function() {
-  return this.x += this.width;
-};
-console.log("right" + ninjaCat.moveRight());
 
-
+//Refacto?
 // NinjaCat.prototype.jump = function() {
-//   // this.speedY = this.speedY + (gravity);
-//   return this.y -= (this.height)-gravity;
+//   if (!this.jumping) {
+//     this.vy = -this.jumpStrength;
+//     this.jumping = true;
+//   }
 // };
-//   console.log(ninjaCat.speedY, ninjaCat.y);
-// console.log("up" + ninjaCat.jump());
+// console.log(ninjaCat.jump());
