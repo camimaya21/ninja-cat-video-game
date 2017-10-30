@@ -1,22 +1,39 @@
-function NinjaCat(lives, width, height, x, y){
+var gravity =  0.05;
+var canvas = document.getElementById("ninja-cat-game");
+var ctx = canvas.getContext("2d");
+
+function NinjaCat(lives, width, height, x, y, color) {
   this.lives = lives;
   this.width = width;
   this.height = height;
   this.x = x;
   this.y = y;
-  this.gavity= 20;
+  this.speedX = 0;
+  this.speedY = 0;
+  this.color = color;
 }
-var ninjaCat1 = new NinjaCat (100, 50, 50, 300, 500);
-console.log(ninjaCat1);
+var ninjaCat = new NinjaCat(100, 50, 50, 300, 500, "blue");
+console.log(ninjaCat);
 
-NinjaCat.prototype.drawCat = function(){
-  
+function draw(ninjaCat) {
+  var img = new Image();
+  img.onload = function() {
+  ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 50, 50);
+  };
+  img.src = "images/cat_jump.gif";
 };
 
-NinjaCat.prototype.left = function(){ return this.x - this.width;};
-console.log(ninjaCat1.left());
+NinjaCat.prototype.moveLeft = function() {
+  return this.x -= this.width;
+};
+console.log("left" + ninjaCat.moveLeft());
 
-NinjaCat.prototype.right = function(){ return this.x + this.width;};
-console.log(ninjaCat1.right());
+NinjaCat.prototype.moveRight = function() {
+  return this.x += this.width;
+};
+console.log("right" + ninjaCat.moveRight());
 
-NinjaCat.prototype.top = function(){ return this.y;};
+NinjaCat.prototype.jump = function() {
+  return (this.y -= (this.height*2));
+};
+console.log("up" + ninjaCat.jump());
