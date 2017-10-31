@@ -1,9 +1,7 @@
 var canvas = document.getElementById("ninja-cat-game");
 var ctx = canvas.getContext("2d");
-// var friction = 0.8;
-// var gravity = 0.98;
 
-function NinjaCat(lives, x, y, width, height) {
+function NinjaCat(lives, x, width, height) {
   this.lives = lives;
   this.x = x;
   this.y = canvas.height - 60;
@@ -17,9 +15,10 @@ function NinjaCat(lives, x, y, width, height) {
   this.grounded = false;
 };
 
-var ninjaCat = new NinjaCat(100, 200, 400, 60, 60);
+var ninjaCat = new NinjaCat(100, 200, 60, 60);
 console.log(ninjaCat);
 
+//Arreglar esta función como constructora
 function draw(ninjaCat) {
   var img = new Image();
   img.onload = function() {

@@ -6,8 +6,8 @@ window.onload = function() {
 
   var gameStarted = false;
   var keys = [];
-  var friction = 0.85;
-  var gravity = 0.98;
+  var friction = 0.85; //Coheficiente de rozamiento
+  var gravity = 0.98; // es una constante --> no se modifica
 
   document.body.addEventListener("keydown", function(e) {
 
@@ -23,6 +23,7 @@ window.onload = function() {
   });
 
   intro_screen();
+
 
   function intro_screen() {
     ctx.font = "50px Impact";
@@ -49,6 +50,9 @@ window.onload = function() {
   function gameLoop() {
     // console.log("Game On!!!");
     draw(ninjaCat);
+    barrelLeft.draw();
+    barrelCenter.draw();
+    barrelRight.draw();
 
     if (keys[32] || keys[38]) {
       if (!ninjaCat.jumping) {
