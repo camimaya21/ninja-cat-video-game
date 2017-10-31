@@ -1,9 +1,4 @@
 window.onload = function() {
-  var canvas = document.getElementById("ninja-cat-game");
-  var ctx = canvas.getContext("2d");
-  // ctx.fillStyle = 'white';
-  // ctx.font = '18px serif';
-
   var gameStarted = false;
   var keys = [];
   var friction = 0.85; //Coheficiente de rozamiento
@@ -24,7 +19,6 @@ window.onload = function() {
 
   intro_screen();
 
-
   function intro_screen() {
     ctx.font = "50px Impact";
     ctx.fillStyle = "#b50909";
@@ -37,22 +31,19 @@ window.onload = function() {
 
   function startGame() {
     gameStarted = true;
-    // console.log("the game just begin");
     clearCanvas();
 
+    // requestAnimationFrame(gameLoop);
+
     setInterval(function() {
-      // console.log("loop startGame");
       clearCanvas();
       gameLoop();
-    }, 1000 / 30);
+    }, 1000 / 60);
   };
 
   function gameLoop() {
-    // console.log("Game On!!!");
-    draw(ninjaCat);
-    barrelLeft.draw();
-    barrelCenter.draw();
-    barrelRight.draw();
+    drawBarrels();
+    drawNinja();
 
     if (keys[32] || keys[38]) {
       if (!ninjaCat.jumping) {
@@ -61,40 +52,74 @@ window.onload = function() {
       }
     }
     if (keys[39]) {
-      // console.log("right Key");
       ninjaCat.moveRight();
     }
     if (keys[37]) {
-      // console.log("left Key");
       ninjaCat.moveLeft();
     }
 
     ninjaCat.x += ninjaCat.vx;
     ninjaCat.y += ninjaCat.vy;
+
     ninjaCat.vx *= friction;
     ninjaCat.vy += gravity;
 
-    if (ninjaCat.y >= canvas.height - ninjaCat.height) {
-      ninjaCat.y = canvas.height - ninjaCat.height;
-      ninjaCat.jumping = false;
-    }
+    ninjaCat.grounded = false;
 
+    for (var i = 0; i < barrels.length; i++) {
+      var direction = collisionCheck(ninjaCat, barrels[i]);
+      // console.log(direction);
+      if (direction == "left" || direction == "right") {
+        ninjaCat.vx = 0;
+      } else if (direction == "bottom") {
+        ninjaCat.jumping = false;
+        ninjaCat.grounded = true;
+      } else if (direction == "top") {
+        ninjaCat.vy *= -1;
+      }
+    }
+    if (ninjaCat.grounded) {
+      ninjaCat.vy = 0;
+    }
+    // requestAnimationFrame(gameLoop);
+  };
+
+  function collisionCheck(ninjaCat, barrels) {
+
+    let vectorX = (ninjaCat.x + (ninjaCat.width / 2)) - (barrels.x + (barrels.width / 2));
+    let vectorY = (ninjaCat.y + (ninjaCat.height / 2)) - (barrels.y + (barrels.height / 2));
+
+    let halfWidths = (ninjaCat.width / 2) + (barrels.width / 2);
+    let halfHeights = (ninjaCat.height / 2) + (barrels.height / 2);
+
+    let collisionDirection = null;
+
+    if (Math.abs(vectorX) < halfWidths && Math.abs(vectorY) < halfHeights) {
+      let offsetX = halfWidths - Math.abs(vectorX);
+      let offsetY = halfHeights - Math.abs(vectorY);
+      if (offsetX < offsetY) {
+        if (vectorX > 0) {
+          collisionDirection = "left";
+          ninjaCat.x += offsetX;
+        } else {
+          ollisionDirection = "right";
+          ninjaCat.x -= offsetX;
+        }
+      } else {
+        if (vectorY > 0) {
+          collisionDirection = "top";
+          ninjaCat.y += offsetY;
+        } else {
+          collisionDirection = "bottom";
+          ninjaCat.y -= offsetY;
+        }
+      }
+    };
+    return collisionDirection;
   };
 
   function clearCanvas() {
     ctx.clearRect(0, 0, 854, 480);
   };
-
-  // Keyboard controls - fluid moves
-  // var keysDown = {};
-  // addEventListener('keydown', function (e) {
-  //   ninjaCat.moving = true;
-  // 	keysDown[e.keyCode] = true;
-  // }, false);
-  //
-  // addEventListener('keyup', function (e) {
-  //   ninjaCat.moving = false;
-  // 	delete keysDown[e.keyCode];
-  // }, false);
 
 };

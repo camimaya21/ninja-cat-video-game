@@ -1,23 +1,91 @@
-var canvas = document.getElementById("ninja-cat-game");
-var ctx = canvas.getContext("2d");
+var barrels = [];
+var bWidth = 150;
+var bHeight = 100;
+console.log(barrels);
 
-function Barrel (x, y, width, height){
-this.x = x;
-this.y = canvas.height - 100;
-this.width = width;
-this.height = height;
-};
+barrels.push({
+  x: 100,
+  y: 380,
+  width: bWidth,
+  height: bHeight,
+});
 
-var barrelLeft = new Barrel (100, 480, 150, 100);
-console.log(barrelLeft);
+barrels.push({
+  x: 350,
+  y: 380,
+  width: bWidth,
+  height: bHeight,
+});
 
-var barrelCenter = new Barrel (350, 480, 150, 100);
-console.log(barrelCenter);
+barrels.push({
+  x: 600,
+  y: 380,
+  width: bWidth,
+  height: bHeight,
+});
+/// Floor ///
+barrels.push({
+  x: 0,
+  y: canvas.height - 5,
+  width: canvas.width,
+  height: bHeight,
+});
 
-var barrelRight = new Barrel (600, 480, 150, 100);
-console.log(barrelRight);
+// Left Wall
+barrels.push({
+  x: -10,
+  y: 0,
+  width: 10,
+  height: canvas.height,
+});
 
-Barrel.prototype.draw = function(){
+// Left Wall
+barrels.push({
+  x: canvas.width,
+  y: 0,
+  width: 10,
+  height: canvas.height,
+});
+
+// Ceiling
+barrels.push({
+  x: 0,
+  y: -10,
+  width: canvas.width,
+  height: 15,
+});
+
+console.log(barrels);
+
+function drawBarrels() {
   ctx.fillStyle = "#c3c3c3";
-  ctx.fillRect(this.x, this.y, this.width, this.height);
+  for (var i = 0; i < barrels.length; i++) {
+    ctx.fillRect(barrels[i].x, barrels[i].y, barrels[i].width, barrels[i].height);
+  }
 };
+
+
+// function Stand (width, height){
+// this.width = width;
+// this.height = height;
+// };
+//
+// var barrelsize = new Stand (150, 50);
+// console.log(barrels);
+
+// var barrels = [{sLeft}, sCenter, sRight];
+// console.log(barrels);
+// //
+// var sLeft = new Stand (100, 480, 150, 100);
+// console.log(sLeft);
+//
+// var sCenter = new Stand (350, 480, 150, 100);
+// console.log(sCenter);
+//
+// var sRight = new Stand (600, 480, 150, 100);
+// console.log(sRight);
+//
+// Stand.prototype.draw = function(){
+//   ctx.fillStyle = "#c3c3c3";
+//   ctx.fillRect(this.x, this.y, this.width, this.height);
+// };

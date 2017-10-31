@@ -1,10 +1,10 @@
 var canvas = document.getElementById("ninja-cat-game");
 var ctx = canvas.getContext("2d");
 
-function NinjaCat(lives, x, width, height) {
+function NinjaCat(lives, x, y, width, height) {
   this.lives = lives;
   this.x = x;
-  this.y = canvas.height - 60;
+  this.y = y;
   this.width = width;
   this.height = height;
   this.speed = 5;
@@ -15,16 +15,16 @@ function NinjaCat(lives, x, width, height) {
   this.grounded = false;
 };
 
-var ninjaCat = new NinjaCat(100, 200, 60, 60);
+var ninjaCat = new NinjaCat(100, 400, 50, 60, 60);
 console.log(ninjaCat);
 
 //Arreglar esta función como constructora
-function draw(ninjaCat) {
+function drawNinja() {
   var img = new Image();
   img.onload = function() {
     ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 60, 60);
   };
-  img.src = "images/cat_jump.gif";
+  img.src = "images/cat1.png";
 };
 
 NinjaCat.prototype.moveRight = function() {
@@ -32,14 +32,12 @@ NinjaCat.prototype.moveRight = function() {
     return this.vx++;
   }
 };
-console.log("right" + ninjaCat.moveRight());
 
 NinjaCat.prototype.moveLeft = function() {
   if (this.vx < this.speed) {
     return this.vx--;
   }
 };
-console.log("left" + ninjaCat.moveLeft());
 
 
 
