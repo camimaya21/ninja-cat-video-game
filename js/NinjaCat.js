@@ -26,6 +26,7 @@ NinjaCat.prototype.drawNinja = function (){
 };
 
 NinjaCat.prototype.resetGame = function (){
+  this.lives = 100;
   this.x = 400;
   this.y = 50;
   this.grounded = true;
@@ -47,14 +48,8 @@ NinjaCat.prototype.moveLeft = function() {
 
 NinjaCat.prototype.receiveDamage = function (damage){
   this.lives -= damage;
-  if (this.lives > 0){
-    return "NinjaCat has been hurt " + "-" + damage + " points of live";
-  } else {
-    return "Sorry...You need to do more KATAS to be a better Ninja";
-  }
 };
 
-// console.log(ninjaCat.receiveDamage(20));
 
 
 //Refacto?

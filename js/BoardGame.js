@@ -64,7 +64,3 @@ GameArea.prototype.score = function() {
   // this.ctx.fillStyle = 'black';
   // this.ctx.fillText('Score: '+points, 350, 50);
 };
-
-GameArea.prototype.stop = function() {
-  // clearInterval(this.interval);
-};
