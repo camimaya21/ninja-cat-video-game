@@ -9,18 +9,11 @@ this.width = width;
 this.height = height;
 };
 
-var floorLava = new Weapons(100, 0, 460, 856, 30);
-console.log(floorLava);
-
-var shuriken = new Weapons(20, 600, 0, 10, 10);
-console.log(shuriken);
-
 Weapons.prototype.attack = function(){
   return this.damage;
 };
 
-
-function drawLava() {
+Weapons.prototype.drawLava = function (){
   ctx.fillStyle = "#ad0f0f";
-  ctx.fillRect(floorLava.x, floorLava.y, floorLava.width, floorLava.height);
+  ctx.fillRect(this.x, this.y, this.width, this.height);
 };

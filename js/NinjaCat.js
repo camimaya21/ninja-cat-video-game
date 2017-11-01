@@ -15,18 +15,22 @@ function NinjaCat(lives, x, y, width, height) {
   this.grounded = false;
 };
 
-var ninjaCat = new NinjaCat(100, 400, 50, 40, 40);
-// console.log(ninjaCat);
-
-//Arreglar esta función como constructora
-function drawNinja() {
+NinjaCat.prototype.drawNinja = function (){
   ctx.fillStyle = "#ff0000";
-		ctx.fillRect(ninjaCat.x, ninjaCat.y, ninjaCat.width, ninjaCat.height);
-  // var img = new Image();
-  // img.onload = function() {
-  //   ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 60, 60);
-  // };
-  // img.src = "images/cat1.png";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    // var img = new Image();
+    // img.onload = function() {
+    //   ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 60, 60);
+    // };
+    // img.src = "images/cat1.png";
+};
+
+NinjaCat.prototype.resetGame = function (){
+  this.x = 400;
+  this.y = 50;
+  this.grounded = true;
+  this.vy = 0;
+  this.vx = 0;
 };
 
 NinjaCat.prototype.moveRight = function() {

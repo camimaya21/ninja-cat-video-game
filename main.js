@@ -4,40 +4,25 @@ window.onload = function() {
   var friction = 0.85; //Coheficiente de rozamiento
   var gravity = 0.98; // es una constante --> no se modifica
   var deadNinja = false;
+  var ninjaCat = new NinjaCat(100, 400, 50, 40, 40);
+  var shuriken = new Weapons(20, 600, 0, 10, 10);
+  var floorLava = new Weapons(100, 0, 460, 856, 30);
+  var board = new GameArea;
   // var intervalId = "";
 
   document.body.addEventListener("keydown", function(e) {
-
-    if (e.keyCode == 13 && !gameStarted) {
-      startGame();
-    }
-    if (e.keyCode == 13 && deadNinja) {
-      reset();
-    }
+    if (e.keyCode == 13 && !gameStarted) {startGame();}
+    if (e.keyCode == 13 && deadNinja) {reset();}
     keys[e.keyCode] = true;
-
   });
 
-  document.body.addEventListener("keyup", function(e) {
-    keys[e.keyCode] = false;
-  });
+  document.body.addEventListener("keyup",function(e){keys[e.keyCode] = false;});
 
-  intro_screen();
-
-  function intro_screen() {
-    ctx.font = "50px Impact";
-    ctx.fillStyle = "#b50909";
-    ctx.textAlign = "center";
-    ctx.fillText("Ninja Cat Training", canvas.width / 2, canvas.height / 2);
-
-    ctx.font = "20px Arial";
-    ctx.fillText("Press Enter To Start", canvas.width / 2, canvas.height / 2 + 50);
-  };
+  board.init();
 
   function startGame() {
     gameStarted = true;
-    clearCanvas();
-
+    board.clear();
     requestAnimationFrame(loop);
 
     //  intervalId = setInterval(function() {
@@ -47,26 +32,13 @@ window.onload = function() {
   };
 
   function gameOver() {
-    clearCanvas();
+    board.clear();
     deadNinja = true;
-
-    ctx.font = "30px Impact";
-    ctx.fillStyle = "#b50909";
-    ctx.textAlign = "center";
-    ctx.fillText("You need to do more KATAS to be a better Ninja", canvas.width / 2, canvas.height / 2);
-
-    ctx.font = "20px Arial";
-    ctx.fillText("Press Enter to Try Again", canvas.width / 2, canvas.height / 2 + 50);
-    // clearInterval(intervalId);
+    board.finish();
   }
 
   function reset() {
-    console.log("reset");
-    ninjaCat.x = 400;
-    ninjaCat.y = 50;
-    ninjaCat.grounded = true;
-    ninjaCat.vy = 0;
-    ninjaCat.vx = 0;
+    ninjaCat.resetGame();
     deadNinja = false;
     // clearInterval(intervalId);
     requestAnimationFrame(loop);
@@ -74,11 +46,10 @@ window.onload = function() {
 
 
   function loop() {
-
-    clearCanvas();
+    board.clear();
     drawBarrels();
-    drawNinja();
-    drawLava();
+    ninjaCat.drawNinja();
+    floorLava.drawLava();
 
     if (keys[32] || keys[38]) {
       if (!ninjaCat.jumping) {
@@ -102,8 +73,8 @@ window.onload = function() {
     ninjaCat.grounded = false;
 
     for (var i = 0; i < barrels.length; i++) {
-      var direction = collisionCheck(ninjaCat, barrels[i]);
-      // console.log(direction);
+      var direction = board.collision(ninjaCat, barrels[i]);
+
       if (direction == "left" || direction == "right") {
         ninjaCat.vx = 0;
       } else if (direction == "bottom") {
@@ -116,55 +87,16 @@ window.onload = function() {
     if (ninjaCat.grounded) {
       ninjaCat.vy = 0;
     }
-    if (collisionCheck(ninjaCat, floorLava)) {
+    if (board.collision(ninjaCat, floorLava)) {
+      //if(ninjaCat.lives < 0){
+        gameOver();
+      //}
       // ninjaCat.receiveDamage(floorLava.attack());
-      gameOver();
+
     }
     if (!deadNinja) {
       requestAnimationFrame(loop);
     }
 
   };
-
-
-
-
-  function collisionCheck(ninjaCat, barrels) {
-
-    let vectorX = (ninjaCat.x + (ninjaCat.width / 2)) - (barrels.x + (barrels.width / 2));
-    let vectorY = (ninjaCat.y + (ninjaCat.height / 2)) - (barrels.y + (barrels.height / 2));
-
-    let halfWidths = (ninjaCat.width / 2) + (barrels.width / 2);
-    let halfHeights = (ninjaCat.height / 2) + (barrels.height / 2);
-
-    let collisionDirection = null;
-
-    if (Math.abs(vectorX) < halfWidths && Math.abs(vectorY) < halfHeights) {
-      let offsetX = halfWidths - Math.abs(vectorX);
-      let offsetY = halfHeights - Math.abs(vectorY);
-      if (offsetX < offsetY) {
-        if (vectorX > 0) {
-          collisionDirection = "left";
-          ninjaCat.x += offsetX;
-        } else {
-          ollisionDirection = "right";
-          ninjaCat.x -= offsetX;
-        }
-      } else {
-        if (vectorY > 0) {
-          collisionDirection = "top";
-          ninjaCat.y += offsetY;
-        } else {
-          collisionDirection = "bottom";
-          ninjaCat.y -= offsetY;
-        }
-      }
-    };
-    return collisionDirection;
-  };
-
-  function clearCanvas() {
-    ctx.clearRect(0, 0, 854, 480);
-  };
-
 };
