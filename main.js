@@ -3,12 +3,17 @@ window.onload = function() {
   var keys = [];
   var friction = 0.85; //Coheficiente de rozamiento
   var gravity = 0.98; // es una constante --> no se modifica
+  var deadNinja = false;
+  // var intervalId = "";
 
   document.body.addEventListener("keydown", function(e) {
 
     if (e.keyCode == 13 && !gameStarted) {
       startGame();
-    };
+    }
+    if (e.keyCode == 13 && deadNinja) {
+      reset();
+    }
     keys[e.keyCode] = true;
 
   });
@@ -33,17 +38,47 @@ window.onload = function() {
     gameStarted = true;
     clearCanvas();
 
-    // requestAnimationFrame(gameLoop);
+    requestAnimationFrame(loop);
 
-    setInterval(function() {
-      clearCanvas();
-      gameLoop();
-    }, 1000 / 60);
+    //  intervalId = setInterval(function() {
+    //   clearCanvas();
+    //   loop();
+    // }, 1000 / 60);
   };
 
-  function gameLoop() {
+  function gameOver() {
+    clearCanvas();
+    deadNinja = true;
+
+    ctx.font = "30px Impact";
+    ctx.fillStyle = "#b50909";
+    ctx.textAlign = "center";
+    ctx.fillText("You need to do more KATAS to be a better Ninja", canvas.width / 2, canvas.height / 2);
+
+    ctx.font = "20px Arial";
+    ctx.fillText("Press Enter to Try Again", canvas.width / 2, canvas.height / 2 + 50);
+    // clearInterval(intervalId);
+  }
+
+  function reset() {
+    console.log("reset");
+    ninjaCat.x = 400;
+    ninjaCat.y = 50;
+    ninjaCat.grounded = true;
+    ninjaCat.vy = 0;
+    ninjaCat.vx = 0;
+    deadNinja = false;
+    // clearInterval(intervalId);
+    requestAnimationFrame(loop);
+  }
+
+
+  function loop() {
+
+    clearCanvas();
     drawBarrels();
     drawNinja();
+    drawLava();
 
     if (keys[32] || keys[38]) {
       if (!ninjaCat.jumping) {
@@ -81,8 +116,18 @@ window.onload = function() {
     if (ninjaCat.grounded) {
       ninjaCat.vy = 0;
     }
-    // requestAnimationFrame(gameLoop);
+    if (collisionCheck(ninjaCat, floorLava)) {
+      // ninjaCat.receiveDamage(floorLava.attack());
+      gameOver();
+    }
+    if (!deadNinja) {
+      requestAnimationFrame(loop);
+    }
+
   };
+
+
+
 
   function collisionCheck(ninjaCat, barrels) {
 

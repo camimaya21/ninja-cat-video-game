@@ -15,16 +15,18 @@ function NinjaCat(lives, x, y, width, height) {
   this.grounded = false;
 };
 
-var ninjaCat = new NinjaCat(100, 400, 50, 60, 60);
-console.log(ninjaCat);
+var ninjaCat = new NinjaCat(100, 400, 50, 40, 40);
+// console.log(ninjaCat);
 
 //Arreglar esta función como constructora
 function drawNinja() {
-  var img = new Image();
-  img.onload = function() {
-    ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 60, 60);
-  };
-  img.src = "images/cat1.png";
+  ctx.fillStyle = "#ff0000";
+		ctx.fillRect(ninjaCat.x, ninjaCat.y, ninjaCat.width, ninjaCat.height);
+  // var img = new Image();
+  // img.onload = function() {
+  //   ctx.drawImage(img, ninjaCat.x, ninjaCat.y, 60, 60);
+  // };
+  // img.src = "images/cat1.png";
 };
 
 NinjaCat.prototype.moveRight = function() {
@@ -39,6 +41,16 @@ NinjaCat.prototype.moveLeft = function() {
   }
 };
 
+NinjaCat.prototype.receiveDamage = function (damage){
+  this.lives -= damage;
+  if (this.lives > 0){
+    return "NinjaCat has been hurt " + "-" + damage + " points of live";
+  } else {
+    return "Sorry...You need to do more KATAS to be a better Ninja";
+  }
+};
+
+// console.log(ninjaCat.receiveDamage(20));
 
 
 //Refacto?
