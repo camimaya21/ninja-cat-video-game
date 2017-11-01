@@ -1,3 +1,5 @@
+var shuriArray = [];
+
 function GameArea(time) {
   this.time = time;
 };
@@ -23,6 +25,20 @@ GameArea.prototype.finish = function (){
   ctx.font = "20px Arial";
   ctx.fillText("Press Enter to Try Again", canvas.width / 2, canvas.height / 2 + 50);
 };
+
+GameArea.prototype.shurikenWave = function (){
+  for (let i = 0; i < 1; i++){
+    // var damage =
+  var x = 0;
+  var y = Math.floor(Math.random() * (canvas.height - 0) + 20);
+  //var vx = Math.floor(Math.random() * (canvas.height - 10 * 2) + 100);
+  var vx = 20;
+ var vy = 2;
+
+  shuriArray.push(new Shuriken(10, x, y, vy, vx));
+  }
+};
+
 
 GameArea.prototype.collision = function (ninja, objects) {
 
