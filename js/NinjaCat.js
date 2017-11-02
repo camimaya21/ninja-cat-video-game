@@ -14,16 +14,13 @@ function NinjaCat(lives, x, y, width, height) {
   this.jumpStrength = 7;
   this.jumping = false;
   this.grounded = false;
+  this.image = new Image();
+  this.image.src = "images/cat1.png";
+  this.scores = 0;
 };
 
 NinjaCat.prototype.drawNinja = function (){
-  ctx.fillStyle = "#ff0000";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-// var img = new Image();
-//     img.onload = function() {
-//       ctx.drawImage(img, this.x, this.y, 60, 60);
-//     };
-//     img.src = "images/cat1.png";
+  ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 };
 
 NinjaCat.prototype.resetGame = function (){
@@ -33,6 +30,12 @@ NinjaCat.prototype.resetGame = function (){
   this.grounded = true;
   this.vy = 0;
   this.vx = 0;
+};
+
+NinjaCat.prototype.moves = function(){
+  this.x += this.vx;
+  this.y += this.vy;
+  this.grounded = false;
 };
 
 NinjaCat.prototype.moveRight = function() {
@@ -51,13 +54,9 @@ NinjaCat.prototype.receiveDamage = function (damage){
   this.lives -= damage;
 };
 
-
-
-//Refacto?
-// NinjaCat.prototype.jump = function() {
-//   if (!this.jumping) {
-//     this.vy = -this.jumpStrength;
-//     this.jumping = true;
-//   }
-// };
-// console.log(ninjaCat.jump());
+NinjaCat.prototype.drawLives = function(){
+  ctx.font = '18px serif';
+  ctx.fillStyle = 'red';
+  ctx.fillText('Live: '+this.lives, 50, 50);
+  ctx.textBaseline = "top";
+};

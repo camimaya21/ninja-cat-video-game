@@ -1,7 +1,9 @@
 var barrels = [];
+var limits = [];
 var bWidth = 150;
 var bHeight = 100;
 
+/// Platforms
 barrels.push({
   x: 100,
   y: 380,
@@ -22,8 +24,9 @@ barrels.push({
   width: bWidth,
   height: bHeight,
 });
-/// floor///
-barrels.push({
+
+/// floor
+limits.push({
   x: 0,
   y: canvas.height - 5,
   width: canvas.width,
@@ -31,15 +34,15 @@ barrels.push({
 });
 
 // Left Wall
-barrels.push({
+limits.push({
   x: -10,
   y: 0,
   width: 10,
   height: canvas.height,
 });
 
-// Left Wall
-barrels.push({
+// Right Wall
+limits.push({
   x: canvas.width,
   y: 0,
   width: 10,
@@ -47,16 +50,25 @@ barrels.push({
 });
 
 // Ceiling
-barrels.push({
+limits.push({
   x: 0,
   y: -10,
   width: canvas.width,
   height: 15,
 });
 
+console.log(limits);
+console.log(barrels);
+
 function drawBarrels() {
   ctx.fillStyle = "#c3c3c3";
   for (var i = 0; i < barrels.length; i++) {
     ctx.fillRect(barrels[i].x, barrels[i].y, barrels[i].width, barrels[i].height);
+  }
+};
+function drawLimits() {
+  ctx.fillStyle = "#c3c3c3";
+  for (var i = 0; i < limits.length; i++) {
+    ctx.fillRect(limits[i].x, limits[i].y, limits[i].width, limits[i].height);
   }
 };
