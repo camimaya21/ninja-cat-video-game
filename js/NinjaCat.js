@@ -1,6 +1,6 @@
 var canvas = document.getElementById("ninja-cat-game");
 var ctx = canvas.getContext("2d");
-var img = new Image();
+// var img = new Image();
 
 function NinjaCat(lives, x, y, width, height) {
   this.lives = lives;
@@ -15,11 +15,11 @@ function NinjaCat(lives, x, y, width, height) {
   this.jumping = false;
   this.grounded = false;
   this.image = new Image();
-  this.image.src = "images/cat1.png";
   this.scores = 0;
 };
 
 NinjaCat.prototype.drawNinja = function (){
+  this.image.src = "images/cat1.png";
   ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 };
 
@@ -55,8 +55,8 @@ NinjaCat.prototype.receiveDamage = function (damage){
 };
 
 NinjaCat.prototype.drawLives = function(){
-  ctx.font = '18px serif';
-  ctx.fillStyle = 'red';
-  ctx.fillText('Live: '+this.lives, 50, 50);
+  ctx.font = "24px 'Shojumaru', cursive";
+  ctx.fillStyle = '#FFF';
+  ctx.fillText('Lives: '+this.lives, 90, 50);
   ctx.textBaseline = "top";
 };

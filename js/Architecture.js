@@ -1,26 +1,28 @@
 var barrels = [];
 var limits = [];
 var bWidth = 150;
-var bHeight = 100;
+var bHeight = 150;
+var stoneImage = new Image();
+var metalSurface = new Image();
 
 /// Platforms
 barrels.push({
   x: 100,
-  y: 380,
+  y: 340,
   width: bWidth,
   height: bHeight,
 });
 
 barrels.push({
   x: 350,
-  y: 380,
+  y: 340,
   width: bWidth,
   height: bHeight,
 });
 
 barrels.push({
   x: 600,
-  y: 380,
+  y: 340,
   width: bWidth,
   height: bHeight,
 });
@@ -57,18 +59,19 @@ limits.push({
   height: 15,
 });
 
-console.log(limits);
-console.log(barrels);
-
 function drawBarrels() {
-  ctx.fillStyle = "#c3c3c3";
   for (var i = 0; i < barrels.length; i++) {
-    ctx.fillRect(barrels[i].x, barrels[i].y, barrels[i].width, barrels[i].height);
+    ctx.fillStyle = "#8a0400";
+    ctx.fillRect(barrels[i].x , barrels[i].y, barrels[i].width, barrels[i].height);
+    stoneImage.src = "images/stone.png";
+    ctx.drawImage(stoneImage, barrels[i].x, barrels[i].y-10, 150, 150);
+    metalSurface.src = "images/platform.png";
+    ctx.drawImage(metalSurface, barrels[i].x-5, barrels[i].y-10, 160, 10);
   }
 };
 function drawLimits() {
-  ctx.fillStyle = "#c3c3c3";
   for (var i = 0; i < limits.length; i++) {
+    ctx.fillStyle = "#1d1d1d";
     ctx.fillRect(limits[i].x, limits[i].y, limits[i].width, limits[i].height);
   }
 };
