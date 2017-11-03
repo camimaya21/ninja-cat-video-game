@@ -74,7 +74,7 @@ GameArea.prototype.bgTemple = function(){
 
 GameArea.prototype.init = function (){
   var alpha = ctx.globalAlpha;
-
+  ctx.fillStyle = '#fff';
   ctx.font = "57.3px 'Shojumaru', cursive";
   ctx.fillText("NinjaCat", 447.4, 64.6);
   ctx.fillText("Training", 457.0, 133.3);
@@ -113,9 +113,9 @@ GameArea.prototype.init = function (){
 
   ctx.font = "14.0px 'Courier New'";
   ctx.fillText("Use your keyboard to move NinjaCat, to keep him safe.  ", 300, 349.7);
-
-  this.imageIntro.src = "images/intro-ninja.png";
-  ctx.drawImage(this.imageIntro, 0, 0, canvas.width, canvas.height);
+  // this.imageIntro.src = "images/ui-ninja-intro.png";
+  // ctx.drawImage(this.imageIntro, 0, 0, canvas.width, canvas.height);
+  // console.log(imageIntro);
 
 };
 

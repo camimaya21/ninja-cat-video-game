@@ -16,7 +16,9 @@ window.onload = function() {
 
   document.body.addEventListener("keyup",function(e){keys[e.keyCode]=false;});
 
+// function homeInit (){
   board.init();
+// };
 
 function startGame() {
   gameStarted = true;
