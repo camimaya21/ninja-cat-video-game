@@ -107,10 +107,6 @@ function loop() {;
 
   if (!deadNinja) { requestAnimationFrame(loop); }
 
-  // if (board.points >10){
-  //   barrels.foreach(barrels.width - 50);
-  // }
-
 };
 
 };

@@ -1,6 +1,6 @@
 var canvas = document.getElementById("ninja-cat-game");
 var ctx = canvas.getContext("2d");
-// var img = new Image();
+var img = new Image();
 
 function NinjaCat(lives, x, y, width, height) {
   this.lives = lives;
