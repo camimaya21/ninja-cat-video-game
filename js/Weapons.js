@@ -38,8 +38,6 @@ Weapons.prototype.attack = function(){
 };
 
 Weapons.prototype.drawLava = function (){
-  // ctx.fillStyle = "#ad0f0f";
-  // ctx.fillRect(this.x, this.y, this.width, this.height);
   this.image.src = "images/lava.png";
 ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 };
