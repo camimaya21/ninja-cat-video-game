@@ -26,6 +26,28 @@ GameArea.prototype.shurikenWave = function (){
   }
 };
 
+GameArea.prototype.shuriAttack = function(ninja) {
+  for (let i = 0; i < this.shuriArray.length; i++) {
+
+    this.shuriArray[i].throw();
+    this.shuriArray[i].draw();
+
+    if (this.collision(ninja, this.shuriArray[i])) {
+      ninja.receiveDamage(this.shuriArray[i].attack());
+      if (ninja.lives <= 0) { console.log(ninja.deadNinja);this.gameOver(ninja); console.log(ninja.deadNinja);this.shuriArray.splice(0, 5); }
+    }
+    if(this.shuriArray[i].x > canvas.width){ this.shuriArray.splice(i, 1); }
+
+  }
+};
+
+GameArea.prototype.gameOver = function (ninja) {
+  this.clear();
+  ninja.deadNinja = true;
+  this.finish();
+
+};
+
 GameArea.prototype.collision = function (ninja, objects) {
 
     let vectorX = (ninja.x + (ninja.width / 2)) -  (objects.x +  (objects.width / 2));

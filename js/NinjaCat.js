@@ -16,6 +16,7 @@ function NinjaCat(lives, x, y, width, height) {
   this.grounded = false;
   this.image = new Image();
   this.scores = 0;
+  this.deadNinja = false;
 };
 
 NinjaCat.prototype.drawNinja = function (){
@@ -32,9 +33,11 @@ NinjaCat.prototype.resetGame = function (){
   this.vx = 0;
 };
 
-NinjaCat.prototype.moves = function(){
+NinjaCat.prototype.moves = function(friction, gravity){
   this.x += this.vx;
   this.y += this.vy;
+  this.vx *= friction;
+  this.vy += gravity;
   this.grounded = false;
 };
 

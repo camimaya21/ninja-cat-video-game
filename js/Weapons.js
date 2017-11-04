@@ -24,8 +24,8 @@ function Shuriken (damage, x, y, vy, vx) {
 }
 
 Shuriken.prototype.draw = function (){
-    this.image.src = "images/shuriken_opt.png";
-    ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+  this.image.src = "images/shuriken_opt.png";
+  ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 };
 
 Shuriken.prototype.throw = function () {
@@ -39,5 +39,5 @@ Weapons.prototype.attack = function(){
 
 Weapons.prototype.drawLava = function (){
   this.image.src = "images/lava.png";
-ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+  ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 };
